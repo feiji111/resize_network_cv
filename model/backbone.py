@@ -1,7 +1,7 @@
 from torchvision.models import resnet50
 import torch.nn as nn
 
-def get_base_model(in_channels: int, num_classes: int = 10, pretrained=False):
+def get_base_model(in_channels: int, num_classes: int = 10, pretrained=True):
     model = resnet50(pretrained)
     model.conv1 = nn.Conv2d(in_channels, 64, kernel_size=7, stride=2,
                             padding=3, bias=False)

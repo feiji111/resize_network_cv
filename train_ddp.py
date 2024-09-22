@@ -15,16 +15,6 @@ from utils import utils, meter, scheduler, loss
 from model.model import ResNetResizer
 from data.dataset import Dataset_imagenet
 
-# Flops_baselines = {
-#     "resnet_56": 125.49,
-#     "resnet_110": 252.89,
-#     "ResNet_18": 1820,
-#     "ResNet_50": 4134,
-#     "VGG_16_bn": 313.73,
-#     "DenseNet_40": 282.00,
-#     "GoogLeNet": 1520,
-#     "MobileNetV2": 327.55,
-# }
 
 class TrainDDP:
     def __init__(self, args):
@@ -122,7 +112,9 @@ class TrainDDP:
             self.logger.info("Loading model")
         self.model = ResNetResizer(self.args)
         ckpt_backbone = torch.load(self.args.backbone_ckpt_path, map_location="cpu")
+        # print(ckpt_backbone["fc.weight"].shape)
         self.model.load_state_dict(ckpt_backbone, strict=False)
+        print(self.model.base_model.state_dict()['fc.weight'].shape)
 
     def define_loss(self):
         self.ori_loss = nn.CrossEntropyLoss()

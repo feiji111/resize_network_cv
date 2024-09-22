@@ -1,1 +1,1 @@
-an implementation of resize_network_cv
+an implementation of resize_network_cv, using ddp to accelarate training
